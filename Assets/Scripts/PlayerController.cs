@@ -44,6 +44,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Sprint(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            speed = 10f;
+        }
+        else if (context.canceled)
+        {
+            speed = 5f;
+        }
+    }
+
     public void Jump(InputAction.CallbackContext context)
     {
         if (!context.started) return;
