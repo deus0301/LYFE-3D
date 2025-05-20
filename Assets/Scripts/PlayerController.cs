@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,6 +20,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpPower;
     private float velocity;
 
+    //Shrinking mechanic
+    private bool isMoving;
+    public bool shrink;
+    private Vector3 idle = new(0.1f, 0.1f, 0.1f);
+    [SerializeField] private float shrinkSpeed = -0.1f;
+
     void Awake()
     {
         //Assigning player character controller to controller object
@@ -30,6 +37,11 @@ public class PlayerController : MonoBehaviour
         ApplyGravity();
         ApplyRotation();
         ApplyMovement();
+        if (shrink && isMoving && transform.localScale.y > 0.01f)
+        {
+            Vector3 shrinkSize = new(shrinkSpeed, shrinkSpeed, shrinkSpeed);
+            transform.localScale -= shrinkSize * Time.deltaTime;
+        }
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -71,6 +83,15 @@ public class PlayerController : MonoBehaviour
         //Taking player input and accordinly setting the direction in which player needs to move
         input = context.ReadValue<Vector2>();
         dir = new Vector3(input.x, 0.0f, input.y);
+        if (dir.magnitude > 0.1f)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
+
     }
 
     private bool isGrounded() => controller.isGrounded;

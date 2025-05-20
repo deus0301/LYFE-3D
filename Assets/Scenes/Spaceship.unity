@@ -482,6 +482,7 @@ GameObject:
   - component: {fileID: 1070651990}
   - component: {fileID: 1070651993}
   - component: {fileID: 1070651992}
+  - component: {fileID: 1070651996}
   - component: {fileID: 1070651995}
   - component: {fileID: 1070651994}
   m_Layer: 0
@@ -575,6 +576,8 @@ MonoBehaviour:
   speed: 5
   gravMultiplier: 1
   jumpPower: 4
+  shrink: 1
+  shrinkSpeed: 0.1
 --- !u!143 &1070651995
 CharacterController:
   m_ObjectHideFlags: 0
@@ -600,6 +603,29 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &1070651996
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070651989}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &1136680289
 GameObject:
   m_ObjectHideFlags: 0
