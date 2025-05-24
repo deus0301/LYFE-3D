@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     //rotation variables
     private float currentVelocity;
 
-    //gravity and jumping
+    // Gravity and jumping
     private float gravity = -9.81f;
     [SerializeField] private float gravMultiplier = 3.0f;
     [SerializeField] private float jumpPower;
@@ -55,7 +55,6 @@ public class PlayerController : MonoBehaviour
             speed = 5f;
         }
     }
-
     public void Jump(InputAction.CallbackContext context)
     {
         if (!context.started) return;
