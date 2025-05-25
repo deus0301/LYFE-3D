@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 5f;
 
     //rotation variables
+    [SerializeField] private Transform cameraTransform;
     private float currentVelocity;
 
     // Gravity and jumping
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
     {
         //Assigning player character controller to controller object
         controller = GetComponent<CharacterController>();
+        cameraTransform = GameObject.Find("Camera pivot").transform;
     }
 
     void Update()
@@ -93,15 +95,28 @@ public class PlayerController : MonoBehaviour
     {
         //Taking player input and accordinly setting the direction in which player needs to move
         input = context.ReadValue<Vector2>();
-        dir = new Vector3(input.x, 0.0f, input.y);
-        if (dir.magnitude > 0.1f)
-        {
-            isMoving = true;
-        }
-        else
-        {
-            isMoving = false;
-        }
+        Vector3 inputDir = new Vector3(input.x, 0.0f, input.y);
+
+    if (inputDir.magnitude > 0.1f)
+    {
+        isMoving = true;
+
+        // Convert to camera-relative movement
+        Vector3 camForward = cameraTransform.forward;
+        Vector3 camRight = cameraTransform.right;
+
+        camForward.y = 0f;
+        camRight.y = 0f;
+        camForward.Normalize();
+        camRight.Normalize();
+
+        dir = camForward * inputDir.z + camRight * inputDir.x;
+    }
+    else
+    {
+        isMoving = false;
+        dir = Vector3.zero;
+    }
 
     }
 
